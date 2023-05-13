@@ -30,7 +30,7 @@ async function create() {
 }
 
 async function bump() {
-    
+    const files = await getFilesToRead()
 }
 
 if (args["--interactive"]){

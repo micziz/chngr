@@ -1,6 +1,6 @@
 import prompt from 'prompts'
 
-export async function choose() {
+export async function choose(): Promise<string> {
     const { whatToDo } = await prompt({
         type: "select",
         name: "whatToDo",

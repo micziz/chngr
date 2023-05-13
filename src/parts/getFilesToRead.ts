@@ -1,6 +1,6 @@
 import { readdir, stat } from "fs/promises"
 
-export async function getFilesToRead() {
+export async function getFilesToRead(): Promise<string[]> {
     const toReturn: string[] = []
     const read = await readdir("./.chngr")
     read.forEach(async (el) => {

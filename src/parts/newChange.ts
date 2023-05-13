@@ -1,6 +1,6 @@
 import prompt from 'prompts'
 
-export async function newChange() {
+export async function newChange(): Promise<{ title: string, author: string, type: string}> {
 
     const { title } = await prompt(
         {
