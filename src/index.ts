@@ -1,14 +1,19 @@
+// Imports
+
+// Local Imports
 import { newChange } from "./parts/newChange.js";
 import { startUp } from "./parts/startup.js";
 import { toTemplate } from "./parts/templateToWrite.js";
 import { choose } from "./parts/choose.js";
 import { getFilesToRead } from "./parts/getFilesToRead.js";
 import { chooseBumpType } from "./parts/chooseBumpType.js";
+import { help } from './parts/help.js'
 
-import { parse } from 'path'
-import { appendFile, readFile, readdir, writeFile, rm } from "fs/promises";
+// Node Imports
+import { parse } from 'node:path'
+import { appendFile, readFile, readdir, writeFile, rm } from "node:fs/promises";
 
-
+// Npm imports
 import emptyDir from 'empty-dir'
 import arg  from 'arg'
 import gm from 'gray-matter'
@@ -62,4 +67,6 @@ if (args["--interactive"]){
     await create()
 } else if (args._.includes("bump")){
     await bump()
+} else if (args._.length === 0){
+    console.log(await help())
 }
