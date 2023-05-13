@@ -1,0 +1,6 @@
+src/
+.chngr
+.prettierrc.json
+changelog.md
+tsup.config.ts
+.eslintrc.js
