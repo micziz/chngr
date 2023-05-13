@@ -2,10 +2,12 @@ import { newChange } from "./parts/newChange.js";
 import { startUp } from "./parts/startup.js";
 import { toTemplate } from "./parts/templateToWrite.js";
 import { choose } from "./parts/choose.js";
-import emptyDir from 'empty-dir'
-import { parse } from 'path'
+import { getFilesToRead } from "./parts/getFilesToRead.js";
 
-import { readFile, readdir, writeFile } from "fs/promises";
+import { parse } from 'path'
+import { readdir, writeFile } from "fs/promises";
+
+import emptyDir from 'empty-dir'
 import arg  from 'arg'
 
 const args = arg({
@@ -27,6 +29,9 @@ async function create() {
     }
 }
 
+async function bump() {
+    
+}
 
 if (args["--interactive"]){
     const option = await choose()
