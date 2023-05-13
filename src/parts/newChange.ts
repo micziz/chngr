@@ -9,6 +9,9 @@ export async function newChange(): Promise<{ title: string, author: string, type
             message: "What is the title of the change?"            
         }
     )
+    if (title === undefined){
+        throw new Error("Please write the title of the commit!")
+    }
     const { author } = await prompt(
         {
             type: "text",
@@ -16,6 +19,9 @@ export async function newChange(): Promise<{ title: string, author: string, type
             message: "What is the author of the change?"
         },
     )
+    if (author === undefined){
+        throw new Error("Please write an author")
+    }
     const { type } = await prompt(
         {
             type: "select",
@@ -34,6 +40,9 @@ export async function newChange(): Promise<{ title: string, author: string, type
             ]
         }
     )
+    if (type === undefined){
+        throw new Error("Please selcet an option")
+    }
     return {
         title: String(title),
         author: String(author),

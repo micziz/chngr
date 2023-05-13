@@ -3,12 +3,16 @@ import { startUp } from "./parts/startup.js";
 import { toTemplate } from "./parts/templateToWrite.js";
 import { choose } from "./parts/choose.js";
 import { getFilesToRead } from "./parts/getFilesToRead.js";
+import { chooseBumpType } from "./parts/chooseBumpType.js";
 
 import { parse } from 'path'
-import { readdir, writeFile } from "fs/promises";
+import { appendFile, readFile, readdir, writeFile } from "fs/promises";
+
 
 import emptyDir from 'empty-dir'
 import arg  from 'arg'
+import gm from 'gray-matter'
+import { inc } from 'semver'
 
 const args = arg({
     "--interactive": Boolean,
@@ -30,7 +34,17 @@ async function create() {
 }
 
 async function bump() {
+    const bumpType = await chooseBumpType()
+    const { version } = JSON.parse(await readFile("./package.json", "utf-8"))
+    inc(version, bumpType)
+
     const files = await getFilesToRead()
+
+    files.forEach(async (el) => {
+        const { data: { title, author, type }} = gm(await readFile(el, "utf-8"))
+        
+        
+    })
 }
 
 if (args["--interactive"]){

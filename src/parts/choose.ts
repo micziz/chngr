@@ -10,5 +10,8 @@ export async function choose(): Promise<string> {
             {title: "Bump to a new version", value: "bump"},
         ]
     })   
+    if (whatToDo === undefined){
+        throw new Error("Please selcet an option")
+    }
     return whatToDo
 }
