@@ -6,7 +6,7 @@ import { getFilesToRead } from "./parts/getFilesToRead.js";
 import { chooseBumpType } from "./parts/chooseBumpType.js";
 
 import { parse } from 'path'
-import { appendFile, readFile, readdir, writeFile } from "fs/promises";
+import { appendFile, readFile, readdir, writeFile, rm } from "fs/promises";
 
 
 import emptyDir from 'empty-dir'
@@ -36,15 +36,21 @@ async function create() {
 async function bump() {
     const bumpType = await chooseBumpType()
     const { version } = JSON.parse(await readFile("./package.json", "utf-8"))
-    inc(version, bumpType)
+    const versionToWrite = inc(version, bumpType)
+    await appendFile("./changelog.md", String(versionToWrite) + "\n")
 
     const files = await getFilesToRead()
 
-    files.forEach(async (el) => {
-        const { data: { title, author, type }} = gm(await readFile(el, "utf-8"))
-        
-        
-    })
+    for (const el in files){
+        const writeEl = files[el]
+        const { data: { title, author, type }, content} = gm(await readFile(`./.chngr/${writeEl}`, "utf-8"))
+        await appendFile("./changelog.md", `
+${type}: ${title} by ${author}
+
+${content}
+        `)
+        await rm(`./.chngr/${writeEl}`)
+    }
 }
 
 if (args["--interactive"]){
@@ -55,4 +61,5 @@ if (args["--interactive"]){
 } else if (args._.includes("create")){
     await create()
 } else if (args._.includes("bump")){
+    await bump()
 }
