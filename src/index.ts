@@ -2,8 +2,10 @@ import { newChange } from "./parts/newChange.js";
 import { startUp } from "./parts/startup.js";
 import { toTemplate } from "./parts/templateToWrite.js";
 import { choose } from "./parts/choose.js";
+import emptyDir from 'empty-dir'
+import { parse } from 'path'
 
-import { readFile, writeFile } from "fs/promises";
+import { readFile, readdir, writeFile } from "fs/promises";
 import arg  from 'arg'
 
 const args = arg({
@@ -16,14 +18,13 @@ async function create() {
     const { title, author, type, } = await newChange()
     
     const template = toTemplate(title, author, type)
-    let num = Number(JSON.parse((await readFile("./.chngr/.chngr.json")).toString()).num)
-    await writeFile(`./.chngr/${num}.md`, template)
-    
-    
-    const toWrite = {
-        num: num += 1
+    if (await emptyDir("./.chngr")){
+        await writeFile(`./.chngr/1.md`, template) 
+    } else {
+        const files = await readdir("./.chngr")
+        let num = Number(parse(String(files.at(-1))).name)
+        await writeFile(`./.chngr/${num += 1}.md`, template)
     }
-    await writeFile("./.chngr/.chngr.json", JSON.stringify(toWrite, null, 2))
 }
 
 
@@ -32,4 +33,7 @@ if (args["--interactive"]){
     if (option === "create"){
         await create()
     }
+} else if (args._.includes("create")){
+    await create()
+} else if (args._.includes("bump")){
 }
