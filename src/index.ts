@@ -29,15 +29,18 @@ await startUp()
 
 async function create() {
     const { title, author, type, } = await newChange()
-    
+    let file;
     const template = toTemplate(title, author, type)
     if (await emptyDir("./.chngr")){
         await writeFile(`./.chngr/1.md`, template) 
+        file = `./.chngr/1.md` 
     } else {
         const files = await readdir("./.chngr")
         let num = Number(parse(String(files.at(-1))).name)
         await writeFile(`./.chngr/${num += 1}.md`, template)
+        file = `./.chngr/${num += 1}.md`
     }
+    console.log(`Created change in ${file}. Modify the content of the page to write the changelog message!`)
 }
 
 async function bump() {
