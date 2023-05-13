@@ -1,11 +1,6 @@
-import { readFile } from "fs/promises"
-import { fileURLToPath } from "url"
-import { join } from 'path'
-
-const dirname = fileURLToPath(new URL(".", import.meta.url))
+import { version } from '../utils/version'
 
 export async function help(){
-    const {version} = JSON.parse(await readFile(join(dirname.replace("dist", ""), "package.json"), "utf-8"))
     return `
 chngr version ${version}
 

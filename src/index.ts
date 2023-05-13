@@ -8,6 +8,7 @@ import { choose } from "./parts/choose.js";
 import { getFilesToRead } from "./parts/getFilesToRead.js";
 import { chooseBumpType } from "./parts/chooseBumpType.js";
 import { help } from './parts/help.js'
+import { version } from "./utils/version.js";
 
 // Node Imports
 import { parse } from 'node:path'
@@ -21,6 +22,7 @@ import { inc } from 'semver'
 
 const args = arg({
     "--interactive": Boolean,
+    "--version": Boolean
 })
 
 await startUp()
@@ -58,7 +60,9 @@ ${content}
     }
 }
 
-if (args["--interactive"]){
+if (args["--version"]){
+    console.log(version)
+} else if (args["--interactive"]){
     const option = await choose()
     if (option === "create"){
         await create()
