@@ -61,6 +61,7 @@ ${content}
         `)
         await rm(`./.chngr/${writeEl}`)
     }
+    console.log("Successfully appended changelog.md!")
 }
 
 if (args["--version"]){
