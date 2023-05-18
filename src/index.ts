@@ -29,7 +29,7 @@ await startUp()
 
 async function create() {
     const { title, author, type, } = await newChange()
-    let file;
+    let file: string;
     const template = toTemplate(title, author, type)
     if (await emptyDir("./.chngr")){
         await writeFile(`./.chngr/1.md`, template) 
@@ -76,5 +76,5 @@ if (args["--version"]){
 } else if (args._.includes("bump")){
     await bump()
 } else if (args._.length === 0){
-    console.log(await help())
+    console.log(help)
 }

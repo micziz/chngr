@@ -1,4 +1,4 @@
-import { readdir, stat } from "fs/promises"
+import { readdir, stat } from "node:fs/promises"
 
 export async function getFilesToRead(): Promise<string[]> {
     const toReturn: string[] = []

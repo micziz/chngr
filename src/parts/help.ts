@@ -1,7 +1,9 @@
 import { version } from '../utils/version'
 
-export async function help(){
-    return `
+/**
+ * The help message
+ */
+export const help: string = `
 chngr version ${version}
 
 commands:
@@ -15,5 +17,4 @@ bump:
 
 options:
     --interactive: Will launch interactive mode, takes priority over the other two!
-    `
-}
+`

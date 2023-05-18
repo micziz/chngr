@@ -1,5 +1,10 @@
 import prompt from "prompts";
 
+/**
+ * Asks what type of bump is.
+ * 
+ * @returns A Promise with either patch, minor or major.
+ */
 export async function chooseBumpType(): Promise<("patch" | "minor" | "major")> {
     const { bumpType } = await prompt({
         type: "select",

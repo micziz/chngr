@@ -1,5 +1,19 @@
+// Imports
+
+// Local Imports
+import { ccOpts } from '../utils/convetionalCommitsChoices.js'
+
+// Node Imports
 import prompt from 'prompts'
 
+// Exported function
+/**
+ * Adds a new change to version
+ * 
+ * @returns And object with the title, author and type.
+ * 
+ * @async
+ */
 export async function newChange(): Promise<{ title: string, author: string, type: string}> {
 
     const { title } = await prompt(
@@ -27,17 +41,7 @@ export async function newChange(): Promise<{ title: string, author: string, type
             type: "select",
             name: "type",
             message: "What is the type of change?",
-            choices: [
-                {title: "fix", value: "fix"},
-                {title: "feat", value: "feat"},
-                {title: "build", value: "build"},
-                {title: "chore", value: "chore"},
-                {title: "ci", value: "ci"},
-                {title: "style", value: "style"},
-                {title: "refactor", value: "refactor"},
-                {title: "perf", value: "perf"},
-                {title: "test", value: "test"}
-            ]
+            choices: ccOpts
         }
     )
     if (type === undefined){
